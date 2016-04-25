@@ -1,0 +1,19 @@
+FROM ubuntu:xenial
+
+ARG DEB_NAME
+
+RUN \
+  apt-get update \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    default-jre-headless \
+    libcurl3 \
+    libevent-2.0-5 \
+    libevent-openssl-2.0-5 \
+    libevent-pthreads-2.0-5 \
+    libsasl2-modules \
+    libsvn1 \
+    python \
+  && rm -rf /var/lib/apt/lists/*
+
+COPY $DEB_NAME /tmp/$DEB_NAME
+RUN dpkg --install /tmp/$DEB_NAME

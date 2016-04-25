@@ -1,0 +1,4 @@
+build
+mesos-repo
+*.deb
+*.egg
