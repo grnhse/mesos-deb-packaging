@@ -54,6 +54,7 @@ function globals {
   use_git_version=false
   prebuilt=false
   extra_libs=''
+  disable_python='true'
 }; globals
 
 function as_absolute {
@@ -108,7 +109,7 @@ function go {
   create_installation
   create_lib_symlinks
   pkg
-  save_python_egg
+  # save_python_egg
 }
 
 function mesos_version {
@@ -243,7 +244,7 @@ function create_installation {(
     echo /var/lib/mesos          > etc/mesos-master/work_dir
     echo 1                       > etc/mesos-master/quorum
   fi
-  python_site_packages "$linux"
+  # python_site_packages "$linux"
   extra_libs
   init_scripts "$linux"
   jars
@@ -484,6 +485,10 @@ function configure_opts {
   then
       options+=" --enable-optimize"
       options+=" --enable-libevent --enable-ssl"
+  fi
+  if [[ "$disable_python" == "true" ]]
+  then
+    options+=" --disable-python"
   fi
 
   out "$options"

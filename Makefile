@@ -17,7 +17,8 @@ dist.tgz:
 package: build/mesos-$(VERSION)-$(OS).deb
 
 build/mesos-$(VERSION)-$(OS).deb: build_mesos docker.build_$(OS_VERSION)
-	docker run --rm -ti -v $(CURDIR)/build:/usr/src/build \
+	docker run -ti -v $(CURDIR)/build:/usr/src/build \
+	  --name mesos_build_$(DATE) \
 	  mesos_build:$(OS_VERSION) \
 	    ./build_mesos \
 	    --build-version $(OS)-$(DATE) \
